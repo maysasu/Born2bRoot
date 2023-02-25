@@ -142,4 +142,39 @@ Test the connection to the virtual machine from another machine on the network t
 
 --
 
+To modify the hostname on a Debian virtual machine, you can follow these steps:
+
+Open a terminal window on the virtual machine.
+
+Login as the root user by running the command:
+
+Copy code
+sudo su
+Edit the /etc/hostname file with your preferred text editor. For example, if you want to set the hostname to "myvm", you can run the command:
+bash
+Copy code
+nano /etc/hostname
+Replace the current hostname in the file with the new hostname you want to set.
+
+Save the changes and exit the editor.
+
+Edit the /etc/hosts file to add the new hostname to the loopback address. Run the command:
+
+bash
+Copy code
+nano /etc/hosts
+Add a new line at the end of the file that looks like this:
+Copy code
+127.0.0.1     myvm
+Replace "myvm" with the new hostname you set in step 4.
+
+Save the changes and exit the editor.
+
+Restart the virtual machine to apply the new hostname by running the command:
+
+Copy code
+sudo reboot
+After the reboot, you should see the new hostname when you log in to the virtual machine.
+
+--
 
