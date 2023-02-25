@@ -31,6 +31,26 @@ When an application starts up, the AppArmor module checks its security profile t
 AppArmor is often used in combination with other security modules such as SELinux to provide additional layers of protection. Together, these modules can help to ensure the security and integrity of a Linux system.
 
 
+-
+
+To run AppArmor on Debian startup, you can use the apparmor.service systemd unit file that comes with the AppArmor package. Here are the steps to enable AppArmor at startup:
+
+Install the AppArmor package if it is not already installed:
+sql
+Copy code
+sudo apt-get update
+sudo apt-get install apparmor
+Enable the apparmor.service systemd unit:
+bash
+Copy code
+sudo systemctl enable apparmor.service
+Reboot the system to start AppArmor at startup:
+Copy code
+sudo reboot
+After rebooting, AppArmor will be running and enforcing security policies on the system.
+
+Note: In some cases, you may need to manually configure AppArmor profiles for applications that are not covered by the default profiles. You can create custom profiles for these applications by creating a new profile file in the /etc/apparmor.d/ directory and then reloading the AppArmor service with the apparmor_parser command.
+
 --
 
 Preventing root user from connecting via SSH can be done by modifying the SSH configuration file on the server. Here are the steps:
@@ -75,3 +95,21 @@ Dependency resolution: aptitude has a more advanced dependency resolution algori
 Logging and history: aptitude maintains a detailed log of package installations and removals, which can be useful for troubleshooting or auditing. apt does not maintain a log by default, but logs can be enabled using third-party tools.
 
 Recommended packages: apt treats recommended packages as optional, while aptitude treats them as required by default. This means that aptitude will install recommended packages unless explicitly told not to, while apt will only install them if they are explicitly requested.
+
+--
+
+SELinux (Security-Enhanced Linux) is a security feature that is built into the Linux kernel. It is a mandatory access control (MAC) mechanism that provides fine-grained control over access to system resources, such as files, network ports, and system calls.
+
+
+---
+
+
+sudo is a command in Unix-like operating systems that allows a user to run a command with the privileges of another user, typically the root user. The name "sudo" stands for "superuser do", reflecting its use to execute commands with superuser privileges.
+
+
+--
+
+
+The /etc directory in Debian (and other Linux distributions) contains configuration files for the system and various applications installed on the system.
+
+The name /etc stands for "editable text configuration" and is a convention that has been adopted by most Unix-like operating systems. The files in this directory are typically plain text files that can be edited by the system administrator to change the behavior of the system or applications.
