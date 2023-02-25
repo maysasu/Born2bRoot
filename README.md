@@ -29,3 +29,25 @@ AppArmor works by defining security profiles for each application that specify t
 When an application starts up, the AppArmor module checks its security profile to determine what permissions it should have. If the application attempts to access a resource that is not allowed by its profile, the AppArmor module blocks the access and generates an audit log entry. This helps to prevent security breaches by limiting the damage that can be done by a compromised application.
 
 AppArmor is often used in combination with other security modules such as SELinux to provide additional layers of protection. Together, these modules can help to ensure the security and integrity of a Linux system.
+
+
+--
+
+Preventing root user from connecting via SSH can be done by modifying the SSH configuration file on the server. Here are the steps:
+
+Log in to the server as a user with sudo privileges.
+
+Open the SSH configuration file for editing. On Debian-based systems, the file is located at /etc/ssh/sshd_config.
+
+Find the line that starts with PermitRootLogin and change its value to no. If the line is commented out, uncomment it first and then change the value. The updated line should look like this:
+
+perl
+Copy code
+PermitRootLogin no
+Save the changes to the SSH configuration file and exit the editor.
+
+Restart the SSH service to apply the changes. On Ubuntu or Debian-based systems, the command is:
+
+Copy code
+sudo systemctl restart ssh
+After completing these steps, the root user will no longer be able to connect to the server using SSH. It is recommended to create a separate user account with sudo privileges for remote administration, and use that account to log in via SSH. This can help improve security by limiting the attack surface of the server.
