@@ -51,3 +51,27 @@ Restart the SSH service to apply the changes. On Ubuntu or Debian-based systems,
 Copy code
 sudo systemctl restart ssh
 After completing these steps, the root user will no longer be able to connect to the server using SSH. It is recommended to create a separate user account with sudo privileges for remote administration, and use that account to log in via SSH. This can help improve security by limiting the attack surface of the server.
+
+
+--
+
+Here are the basic steps of how SSH works:
+
+Authentication: The client initiates a connection to the server and sends an authentication request. The server responds by sending its public key to the client.
+
+Key exchange: The client generates a session key and encrypts it with the server's public key. The server decrypts the session key using its private key.
+
+Encryption: Once the session key has been established, all data sent between the client and server is encrypted using the session key.
+
+Data transfer: The client and server can now exchange data over the encrypted connection, including commands and responses.
+
+--
+aptitude and apt are both command-line package managers for Debian-based Linux distributions, such as Debian, Ubuntu, and Linux Mint. While they both serve a similar purpose of installing and managing software packages, there are some differences between them:
+
+User interface: aptitude has a full-screen text-based interface, while apt has a more basic command-line interface.
+
+Dependency resolution: aptitude has a more advanced dependency resolution algorithm than apt. It can automatically detect and resolve conflicts between packages, and can suggest solutions to fix broken packages. apt relies on a simpler algorithm that may require manual intervention in some cases.
+
+Logging and history: aptitude maintains a detailed log of package installations and removals, which can be useful for troubleshooting or auditing. apt does not maintain a log by default, but logs can be enabled using third-party tools.
+
+Recommended packages: apt treats recommended packages as optional, while aptitude treats them as required by default. This means that aptitude will install recommended packages unless explicitly told not to, while apt will only install them if they are explicitly requested.
