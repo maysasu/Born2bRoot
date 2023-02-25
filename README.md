@@ -113,3 +113,33 @@ sudo is a command in Unix-like operating systems that allows a user to run a com
 The /etc directory in Debian (and other Linux distributions) contains configuration files for the system and various applications installed on the system.
 
 The name /etc stands for "editable text configuration" and is a convention that has been adopted by most Unix-like operating systems. The files in this directory are typically plain text files that can be edited by the system administrator to change the behavior of the system or applications.
+
+
+--
+
+
+To have ufw active when running a virtual machine, you need to configure your firewall settings to allow traffic from the virtual machine's network. Here are the steps:
+
+Determine the network interface used by the virtual machine. You can do this by running the command ifconfig or ip addr show in the terminal.
+
+Allow traffic from the virtual machine's network by adding the appropriate rules to the ufw firewall. For example, if your virtual machine is using the network interface virbr0, you can allow incoming SSH traffic from that interface by running the command:
+
+vbnet
+Copy code
+sudo ufw allow in on virbr0 to any port 22
+This command allows incoming traffic from the virbr0 interface to any IP address on port 22 (SSH). You can replace port 22 with any other port number you need to allow.
+
+Make sure that ufw is enabled and running on the host system. You can check the status of ufw by running the command:
+lua
+Copy code
+sudo ufw status
+If ufw is not enabled, you can enable it by running the command:
+
+bash
+Copy code
+sudo ufw enable
+Test the connection to the virtual machine from another machine on the network to ensure that the firewall rules are working correctly.
+
+--
+
+
