@@ -1,0 +1,58 @@
+To change the size of an LVM (Logical Volume Manager) on a virtual box, you can follow these general steps:
+
+Expand the virtual disk in the virtual box settings. This will increase the size of the disk available to the virtual machine.
+
+Boot the virtual machine and identify the LVM volume you want to resize using the lsblk command.
+
+Create a new partition using fdisk or parted command to take up the new space on the disk.
+
+Create a new physical volume on the new partition using the pvcreate command.
+
+Add the new physical volume to the existing volume group using the vgextend command.
+
+Extend the logical volume using the lvextend command.
+
+Resize the file system using the appropriate command, depending on the file system type. For example, resize2fs for ext2, ext3, or ext4 file systems or xfs_growfs for XFS file systems.
+
+Here is an example command sequence to extend a logical volume named lv_home on an LVM named vg_data:
+
+
+# Check current size of logical volume
+sudo lvdisplay /dev/vg_data/lv_home
+
+# Create a new partition
+sudo fdisk /dev/sda
+
+# Create a new physical volume on the new partition
+sudo pvcreate /dev/sda3
+
+# Extend the volume group
+sudo vgextend vg_data /dev/sda3
+
+# Extend the logical volume
+sudo lvextend -L +10G /dev/vg_data/lv_home
+
+# Resize the file system
+sudo resize2fs /dev/vg_data/lv_home
+
+
+---
+
+
+First, you need to expand the virtual disk in VirtualBox. To do this, shut down the virtual machine and go to the "Settings" for the virtual machine. Select the "Storage" tab, select the virtual disk you want to expand, and click on the "Modify" button (the gear icon). In the "Size" field, enter the new size for the virtual disk and click "OK".
+
+Start the virtual machine and log in to the Debian system.
+
+Check the current size of the logical volume using the command sudo lvdisplay. This will display information about the logical volumes on the system.
+
+Create a new partition on the virtual disk using a partitioning tool such as fdisk or parted. You will need to create a new partition that takes up the additional space on the virtual disk. Make sure to set the partition type to "8e" (Linux LVM).
+
+Once you have created the new partition, you need to initialize it as an LVM physical volume using the command sudo pvcreate /dev/sdXn, where /dev/sdXn is the new partition you just created.
+
+Next, extend the existing volume group to include the new physical volume using the command sudo vgextend <volume_group_name> /dev/sdXn, where <volume_group_name> is the name of the volume group that you want to extend.
+
+Finally, you need to extend the logical volume to use the additional space in the volume group. You can do this using the command sudo lvextend -l +100%FREE /dev/<volume_group_name>/<logical_volume_name>, where <volume_group_name> is the name of the volume group and <logical_volume_name> is the name of the logical volume that you want to extend.
+
+Resize the file system on the logical volume using a command appropriate for the file system type. For example, if the file system is ext4, you can use the command sudo resize2fs /dev/<volume_group_name>/<logical_volume_name>.
+
+Finally, verify that the logical volume has been extended to the desired size using the command sudo lvdisplay. The output should show the new size of the logical volume
